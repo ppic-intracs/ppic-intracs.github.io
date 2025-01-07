@@ -1,124 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="author" content="CodeHim">
-      <title> Collapsible Notes Timeline </title>
-      <!-- Style CSS -->
-      <link rel="stylesheet" href="./css/style.css">
-      <!-- Demo CSS (No need to include it into your project) -->
-      <link rel="stylesheet" href="./css/demo.css">
-      <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&amp;display=swap'>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="CodeHim">
+	<title> Collapsible Notes Timeline </title>
+	<!-- Style CSS -->
+	<link rel="stylesheet" href="./css/style.css">
+	<!-- Demo CSS (No need to include it into your project) -->
+	<link rel="stylesheet" href="./css/demo.css">
+	<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&amp;display=swap'>
    </head>
    <body>
-
-
-<main class="cd__main">
-	<!-- Start DEMO HTML (Use the following code into your project)-->
-	<svg display="none">
-		<symbol id="arrow">
-			<polyline points="7 10,12 15,17 10" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-		</symbol>
-	</svg>
-
-	<h1>Collapsible Notes Timeline</h1>
-	<div id="timeline" class="timeline">
-		<div class="btn-group">
-			<button class="btn" type="button" data-action="expand">Expand All</button>
-			<button class="btn" type="button" data-action="collapse">Collapse All</button>
-		</div>
-
-		<!-- Start-->
-		<div class="timeline__item">
-			<div class="timeline__item-header">
-				<button class="timeline__arrow" type="button" id="item2" aria-labelledby="item2-name" aria-expanded="false" aria-controls="item2-ctrld" aria-haspopup="true" data-item="2">
-					<svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-						<use href="#arrow" />
-					</svg>
-				</button>
-				<span class="timeline__dot"></span>
-				<span id="item2-name" class="timeline__meta">
-					<time class="timeline__date" datetime="1973-10-17">7 Januari 2025</time><br>
-					<strong class="timeline__title">SSL For Domain Free.Nf</strong>
-				</span>
+	<main class="cd__main">
+		<!-- Start DEMO HTML (Use the following code into your project)-->
+		<svg display="none">
+			<symbol id="arrow">
+				<polyline points="7 10,12 15,17 10" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+			</symbol>
+		</svg>
+	
+		<h1>Collapsible Notes Timeline</h1>
+		<div id="timeline" class="timeline">
+			<div class="btn-group">
+				<button class="btn" type="button" data-action="expand">Expand All</button>
+				<button class="btn" type="button" data-action="collapse">Collapse All</button>
 			</div>
-			<div class="timeline__item-body" id="item2-ctrld" role="region" aria-labelledby="item2" aria-hidden="true">
-				<div class="timeline__item-body-content">
-					<p class="timeline__item-p">Gunakan ZeroSSL untuk mendapatkan layanan SSL Gratis 90 Hari.</p>
+	
+			<!-- Start-->
+			<div class="timeline__item">
+				<div class="timeline__item-header">
+					<button class="timeline__arrow" type="button" id="item2" aria-labelledby="item2-name" aria-expanded="false" aria-controls="item2-ctrld" aria-haspopup="true" data-item="2">
+						<svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+							<use href="#arrow" />
+						</svg>
+					</button>
+					<span class="timeline__dot"></span>
+					<span id="item2-name" class="timeline__meta">
+						<time class="timeline__date" datetime="1973-10-17">7 Januari 2025</time><br>
+						<strong class="timeline__title">SSL For Domain Free.Nf</strong>
+					</span>
+				</div>
+				<div class="timeline__item-body" id="item2-ctrld" role="region" aria-labelledby="item2" aria-hidden="true">
+					<div class="timeline__item-body-content">
+						<p class="timeline__item-p">Gunakan ZeroSSL untuk mendapatkan layanan SSL Gratis 90 Hari.</p>
+					</div>
+				</div>
+			</div>
+			<!-- Stop-->
+	
+			<div class="timeline__item">
+				<div class="timeline__item-header">
+					<button class="timeline__arrow" type="button" id="item1" aria-labelledby="item1-name" aria-expanded="false" aria-controls="item1-ctrld" aria-haspopup="true" data-item="1">
+						<svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+							<use href="#arrow" />
+						</svg>
+					</button>
+					<span class="timeline__dot"></span>
+					<span id="item1-name" class="timeline__meta">
+						<time class="timeline__date" datetime="1970-01-01">10 September 2024</time><br>
+						<strong class="timeline__title">Setting internet gateway mikrotik dari LAN</strong>
+					</span>
+				</div>
+				<div class="timeline__item-body" id="item1-ctrld" role="region" aria-labelledby="item1" aria-hidden="true">
+					<div class="timeline__item-body-content">
+						<p class="timeline__item-p">Login Winbox - IP - Route - Add - Dst address 0.0.0.0 - Gateway 192.168.5.1 reachable eth1</p>
+					</div>
+				</div>
+			</div>
+	
+			<!-- Start-->
+			<div class="timeline__item">
+				<div class="timeline__item-header">
+					<button class="timeline__arrow" type="button" id="item2" aria-labelledby="item2-name" aria-expanded="false" aria-controls="item2-ctrld" aria-haspopup="true" data-item="2">
+						<svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+							<use href="#arrow" />
+						</svg>
+					</button>
+					<span class="timeline__dot"></span>
+					<span id="item2-name" class="timeline__meta">
+						<time class="timeline__date" datetime="1973-10-17">10 September 2024</time><br>
+						<strong class="timeline__title">Phone Number</strong>
+					</span>
+				</div>
+				<div class="timeline__item-body" id="item2-ctrld" role="region" aria-labelledby="item2" aria-hidden="true">
+					<div class="timeline__item-body-content">
+						<p class="timeline__item-p">Melani - 081258374222</p>
+						<p class="timeline__item-p">Noname - 082331519872</p>
+					</div>
+				</div>
+			</div>
+			<!-- Stop-->
+			
+			<div class="timeline__item">
+				<div class="timeline__item-header">
+					<button class="timeline__arrow" type="button" id="item3" aria-labelledby="item3-name" aria-expanded="false" aria-controls="item3-ctrld" aria-haspopup="true" data-item="3">
+						<svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+							<use href="#arrow" />
+						</svg>
+					</button>
+					<span class="timeline__dot"></span>
+					<span id="item3-name" class="timeline__meta">
+						<time class="timeline__date" datetime="2001-09-09">20 September 2024</time><br>
+						<strong class="timeline__title">Auto Number in Excel</strong>
+					</span>
+				</div>
+				<div class="timeline__item-body" id="item3-ctrld" role="region" aria-labelledby="item3" aria-hidden="true">
+					<div class="timeline__item-body-content">
+						<p class="timeline__item-p">Untuk membuat nomor urut otomatis dan tetap urut walaupun terjadi insert dan delete baris dapat menggunakan rumus =ROWS($A$1:A1)</p>
+					</div>
 				</div>
 			</div>
 		</div>
-		<!-- Stop-->
+	<!-- END DEMO HTML (Happy Coding!)-->
+	</main>   
 
-		<div class="timeline__item">
-			<div class="timeline__item-header">
-				<button class="timeline__arrow" type="button" id="item1" aria-labelledby="item1-name" aria-expanded="false" aria-controls="item1-ctrld" aria-haspopup="true" data-item="1">
-					<svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-						<use href="#arrow" />
-					</svg>
-				</button>
-				<span class="timeline__dot"></span>
-				<span id="item1-name" class="timeline__meta">
-					<time class="timeline__date" datetime="1970-01-01">10 September 2024</time><br>
-					<strong class="timeline__title">Setting internet gateway mikrotik dari LAN</strong>
-				</span>
-			</div>
-			<div class="timeline__item-body" id="item1-ctrld" role="region" aria-labelledby="item1" aria-hidden="true">
-				<div class="timeline__item-body-content">
-					<p class="timeline__item-p">Login Winbox - IP - Route - Add - Dst address 0.0.0.0 - Gateway 192.168.5.1 reachable eth1</p>
-				</div>
-			</div>
-		</div>
-
-		<!-- Start-->
-		<div class="timeline__item">
-			<div class="timeline__item-header">
-				<button class="timeline__arrow" type="button" id="item2" aria-labelledby="item2-name" aria-expanded="false" aria-controls="item2-ctrld" aria-haspopup="true" data-item="2">
-					<svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-						<use href="#arrow" />
-					</svg>
-				</button>
-				<span class="timeline__dot"></span>
-				<span id="item2-name" class="timeline__meta">
-					<time class="timeline__date" datetime="1973-10-17">10 September 2024</time><br>
-					<strong class="timeline__title">Phone Number</strong>
-				</span>
-			</div>
-			<div class="timeline__item-body" id="item2-ctrld" role="region" aria-labelledby="item2" aria-hidden="true">
-				<div class="timeline__item-body-content">
-					<p class="timeline__item-p">Melani - 081258374222</p>
-					<p class="timeline__item-p">Noname - 082331519872</p>
-				</div>
-			</div>
-		</div>
-		<!-- Stop-->
-		
-		<div class="timeline__item">
-			<div class="timeline__item-header">
-				<button class="timeline__arrow" type="button" id="item3" aria-labelledby="item3-name" aria-expanded="false" aria-controls="item3-ctrld" aria-haspopup="true" data-item="3">
-					<svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-						<use href="#arrow" />
-					</svg>
-				</button>
-				<span class="timeline__dot"></span>
-				<span id="item3-name" class="timeline__meta">
-					<time class="timeline__date" datetime="2001-09-09">20 September 2024</time><br>
-					<strong class="timeline__title">Auto Number in Excel</strong>
-				</span>
-			</div>
-			<div class="timeline__item-body" id="item3-ctrld" role="region" aria-labelledby="item3" aria-hidden="true">
-				<div class="timeline__item-body-content">
-					<p class="timeline__item-p">Untuk membuat nomor urut otomatis dan tetap urut walaupun terjadi insert dan delete baris dapat menggunakan rumus =ROWS($A$1:A1)</p>
-				</div>
-			</div>
-		</div>
-	</div>
-<!-- END DEMO HTML (Happy Coding!)-->
-</main>   
-
-      <!-- Script JS -->
-      <script src="./js/script.js"></script>
-      <!-- Analytics Start --><!--$%analytics%$--><!-- Analytics End -->
+	<!-- Script JS -->
+	<script src="./js/script.js"></script>
+	<!-- Analytics Start --><!--$%analytics%$--><!-- Analytics End -->
    </body>
 </html>
