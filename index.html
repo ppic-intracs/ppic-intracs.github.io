@@ -42,6 +42,7 @@ th{background:#f8fafc;color:#475569;font-weight:600;user-select:none}tbody tr:ho
 <aside class="sidebar" id="sidebar">
   <div>
     <h2>Dashboard</h2>
+    Versi 1.0
     <div id="loginPanel">
       <input type="email" id="adminEmail" placeholder="Email admin" autocomplete="username">
       <input type="password" id="adminPassword" placeholder="Password admin" autocomplete="current-password">
@@ -53,11 +54,11 @@ th{background:#f8fafc;color:#475569;font-weight:600;user-select:none}tbody tr:ho
       <button type="button" id="importButton" onclick="uploadExcel()">Import Data</button>
       <button type="button" class="secondary" onclick="logoutAdmin()">Logout</button>
     </div>
-    <div class="sidebar-note">Import Excel hanya tersedia setelah admin login. Baris pertama dianggap sebagai header.</div>
+    <div class="sidebar-note">Import Excel hanya tersedia setelah admin login.</div>
   </div>
 </aside>
 <main class="main">
-  <div class="title-wrapper"><h1 class="page-title">Data Stock PPIC</h1><div class="last-update-text" id="lastUpdate">Versi 1.0 Last Update : -</div></div>
+  <div class="title-wrapper"><h1 class="page-title">Data Stock PPIC</h1><div class="last-update-text" id="lastUpdate">Last Update : -</div></div>
   <section class="card">
     <div class="search-container"><input id="searchInput" type="text" placeholder="Cari kode atau nama barang..." autocomplete="off" oninput="searchData(this.value)"></div>
     <div class="table-responsive">
