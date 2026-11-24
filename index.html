@@ -1,122 +1,217 @@
 <!DOCTYPE html>
-<html lang="en">
-   <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="author" content="CodeHim">
-	<title> Collapsible Notes Timeline </title>
-	<!-- Style CSS -->
-	<link rel="stylesheet" href="./css/style.css">
-	<!-- Demo CSS (No need to include it into your project) -->
-	<link rel="stylesheet" href="./css/demo.css">
-	<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&amp;display=swap'>
-   </head>
-   <body>
-	<main class="cd__main">
-		<!-- Start DEMO HTML (Use the following code into your project)-->
-		<svg display="none">
-			<symbol id="arrow">
-				<polyline points="7 10,12 15,17 10" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-			</symbol>
-		</svg>
-	
-		<h1>Collapsible Notes Timeline</h1>
-		<div id="timeline" class="timeline">
-			<div class="btn-group">
-				<button class="btn" type="button" data-action="expand">Expand All</button>
-				<button class="btn" type="button" data-action="collapse">Collapse All</button>
-			</div>
-			
-			<div class="timeline__item">
-				<div class="timeline__item-header">
-					<button class="timeline__arrow" type="button" id="item1" aria-labelledby="item1-name" aria-expanded="false" aria-controls="item1-ctrld" aria-haspopup="true" data-item="1">
-						<svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-							<use href="#arrow" />
-						</svg>
-					</button>
-					<span class="timeline__dot"></span>
-					<span id="item1-name" class="timeline__meta">
-						<time class="timeline__date" datetime="1970-01-01">10 September 2024</time><br>
-						<strong class="timeline__title">Setting internet gateway mikrotik dari LAN</strong>
-					</span>
-				</div>
-				<div class="timeline__item-body" id="item1-ctrld" role="region" aria-labelledby="item1" aria-hidden="true">
-					<div class="timeline__item-body-content">
-						<p class="timeline__item-p">Login Winbox - IP - Route - Add - Dst address 0.0.0.0 - Gateway 192.168.5.1 reachable eth1</p>
-					</div>
-				</div>
-			</div>
-	
-			<!-- Start-->
-			<div class="timeline__item">
-				<div class="timeline__item-header">
-					<button class="timeline__arrow" type="button" id="item2" aria-labelledby="item2-name" aria-expanded="false" aria-controls="item2-ctrld" aria-haspopup="true" data-item="2">
-						<svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-							<use href="#arrow" />
-						</svg>
-					</button>
-					<span class="timeline__dot"></span>
-					<span id="item2-name" class="timeline__meta">
-						<time class="timeline__date" datetime="1973-10-17">10 September 2024</time><br>
-						<strong class="timeline__title">Phone Number</strong>
-					</span>
-				</div>
-				<div class="timeline__item-body" id="item2-ctrld" role="region" aria-labelledby="item2" aria-hidden="true">
-					<div class="timeline__item-body-content">
-						<p class="timeline__item-p">Nomor - 081232323232</p>
-						<!--p class="timeline__item-p">Melani - 081258374222</p>
-						<p class="timeline__item-p">Noname - 082331519872</p-->
-					</div>
-				</div>
-			</div>
-			<!-- Stop-->
-			
-			<div class="timeline__item">
-				<div class="timeline__item-header">
-					<button class="timeline__arrow" type="button" id="item3" aria-labelledby="item3-name" aria-expanded="false" aria-controls="item3-ctrld" aria-haspopup="true" data-item="3">
-						<svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-							<use href="#arrow" />
-						</svg>
-					</button>
-					<span class="timeline__dot"></span>
-					<span id="item3-name" class="timeline__meta">
-						<time class="timeline__date" datetime="2001-09-09">20 September 2024</time><br>
-						<strong class="timeline__title">Auto Number in Excel</strong>
-					</span>
-				</div>
-				<div class="timeline__item-body" id="item3-ctrld" role="region" aria-labelledby="item3" aria-hidden="true">
-					<div class="timeline__item-body-content">
-						<p class="timeline__item-p">Untuk membuat nomor urut otomatis dan tetap urut walaupun terjadi insert dan delete baris dapat menggunakan rumus =ROWS($A$1:A1)</p>
-					</div>
-				</div>
-			</div>		
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f4f6f8">
+<title>Stock PPIC</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{display:flex;background:#f4f6f8;color:#1e293b;min-height:100vh}
+.hamburger{display:none;position:fixed;top:15px;left:15px;background:#fff;color:#1e293b;border:1px solid #cbd5e1;padding:8px 12px;border-radius:8px;z-index:1100;cursor:pointer;font-size:18px}
+.title-wrapper{text-align:center;margin-bottom:24px}.page-title{font-size:24px;font-weight:600}.last-update-text{font-size:12px;color:#64748b;margin-top:4px}
+.sidebar{width:250px;height:100vh;background:#1e293b;color:#fff;padding:24px 20px;display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:1000;overflow-y:auto;box-shadow:2px 0 10px #0000000d;transition:left .3s}
+.sidebar h2{font-size:20px;font-weight:600;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid #334155}
+.sidebar input,.sidebar button{width:100%;margin-bottom:12px;font-size:14px}
+.sidebar input[type=file]{padding:8px;background:#334155;color:#f8fafc;border-radius:6px;border:1px solid #475569}
+.sidebar input[type=email],.sidebar input[type=password]{padding:10px;background:#fff;color:#1e293b;border:1px solid #cbd5e1;border-radius:6px}
+.sidebar button{padding:10px;border:0;border-radius:6px;background:#2563eb;color:#fff;cursor:pointer;font-weight:500}
+.sidebar button:hover{background:#1d4ed8}.sidebar button:disabled{opacity:.6;cursor:wait}.sidebar .secondary{background:#475569}
+.sidebar-note,.auth-status{color:#cbd5e1;font-size:11px;line-height:1.6;margin:4px 0 12px;overflow-wrap:anywhere}
+.main{flex:1;margin-left:250px;padding:24px;min-height:100vh;width:calc(100% - 250px)}
+.card{background:#fff;padding:20px;border-radius:10px;box-shadow:0 4px 6px -1px #0000000d}
+.search-container{display:flex;justify-content:flex-end;margin-bottom:16px}.search-container input{padding:8px 14px;border:1px solid #cbd5e1;border-radius:6px;width:300px;font-size:14px;outline:none}
+.search-container input:focus{border-color:#2563eb}.table-responsive{width:100%;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:12px 10px;border-bottom:1px solid #e2e8f0;text-align:left}
+th{background:#f8fafc;color:#475569;font-weight:600;user-select:none}tbody tr:hover{background:#f8fafc}
+.pagination{margin-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.pagination select,.pagination button{padding:6px 10px;border:1px solid #cbd5e1;border-radius:6px;background:#fff;color:#1e293b}
+.pagination button{cursor:pointer;margin-left:4px}.pagination button:disabled{opacity:.4;cursor:not-allowed}
+#paginationInfo{font-size:13px;color:#64748b}#toastContainer{position:fixed;top:20px;right:20px;z-index:9999}
+.toast{background:#1e293b;color:#fff;padding:12px 16px;border-radius:8px;margin-bottom:10px;opacity:0;transform:translateY(-20px);transition:.3s;max-width:340px;word-break:break-word;font-size:13px}
+.toast.show{opacity:1;transform:translateY(0)}.toast.success{background:#16a34a}.toast.error{background:#dc2626}.toast.info{background:#2563eb}
+.loading-row{text-align:center!important;color:#64748b;padding:24px!important}
+@media(max-width:768px){.hamburger{display:block}.sidebar{left:-260px;z-index:1200}.sidebar.active{left:0}.main{width:100%;margin-left:0;padding:60px 14px 14px}.page-title{font-size:20px}.search-container input{width:100%}table{font-size:12px}th,td{padding:8px 6px}.card{padding:14px}}
+</style>
+</head>
+<body>
+<button class="hamburger" type="button" onclick="toggleSidebar(event)" aria-label="Buka menu">☰</button>
+<aside class="sidebar" id="sidebar">
+  <div>
+    <h2>Dashboard</h2>
+    <div id="loginPanel">
+      <input type="email" id="adminEmail" placeholder="Email admin" autocomplete="username">
+      <input type="password" id="adminPassword" placeholder="Password admin" autocomplete="current-password">
+      <button type="button" id="loginButton" onclick="loginAdmin()">Login Admin</button>
+    </div>
+    <div id="adminPanel" hidden>
+      <div class="auth-status" id="authStatus"></div>
+      <input type="file" id="fileExcel" accept=".xlsx,.xls">
+      <button type="button" id="importButton" onclick="uploadExcel()">Import Data</button>
+      <button type="button" class="secondary" onclick="logoutAdmin()">Logout</button>
+    </div>
+    <div class="sidebar-note">Import Excel hanya tersedia setelah admin login. Baris pertama dianggap sebagai header.</div>
+  </div>
+</aside>
+<main class="main">
+  <div class="title-wrapper"><h1 class="page-title">Data Stock PPIC</h1><div class="last-update-text" id="lastUpdate">Last Update : -</div></div>
+  <section class="card">
+    <div class="search-container"><input id="searchInput" type="text" placeholder="Cari kode atau nama barang..." autocomplete="off" oninput="searchData(this.value)"></div>
+    <div class="table-responsive">
+      <table><thead><tr><th style="width:60px">No</th><th>Kode</th><th>Nama Barang</th><th onclick="sortStock()" style="cursor:pointer;width:140px">Stock <span id="sortIcon">↕</span></th></tr></thead>
+      <tbody id="tableData"><tr><td colspan="4" class="loading-row">Memuat data...</td></tr></tbody></table>
+    </div>
+    <div class="pagination">
+      <div><select id="pageLimit" onchange="changeLimit(this.value)"><option value="10">10 / hal</option><option value="25">25 / hal</option><option value="50">50 / hal</option></select></div>
+      <div id="paginationInfo">Page 1</div>
+      <div><button type="button" id="prevButton" onclick="prevPage()">Prev</button><button type="button" id="nextButton" onclick="nextPage()">Next</button></div>
+    </div>
+  </section>
+</main>
+<div id="toastContainer" aria-live="polite"></div>
+<script>
+// GANTI dengan Project URL dan anon/public key dari Supabase.
+// Jangan pernah memakai service_role key di browser.
+const SUPABASE_URL = "https://tgnzwysgvnzftizeroqb.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_FCMD51RuoqkIzp_7sa5TBg_bhEa-mD5";
 
-			<div class="timeline__item">
-				<div class="timeline__item-header">
-					<button class="timeline__arrow" type="button" id="item4" aria-labelledby="item4-name" aria-expanded="false" aria-controls="item4-ctrld" aria-haspopup="true" data-item="4">
-						<svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-							<use href="#arrow" />
-						</svg>
-					</button>
-					<span class="timeline__dot"></span>
-					<span id="item4-name" class="timeline__meta">
-						<time class="timeline__date" datetime="2001-09-09">07 Januari 2025</time><br>
-						<strong class="timeline__title">Free SSL For Domain free.nf</strong>
-					</span>
-				</div>
-				<div class="timeline__item-body" id="item4-ctrld" role="region" aria-labelledby="item4" aria-hidden="true">
-					<div class="timeline__item-body-content">
-						<p class="timeline__item-p">Gunakan ZeroSSL untuk mendapatkan layanan SSL Gratis selama 90 hari.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	<!-- END DEMO HTML (Happy Coding!)-->
-	</main>   
+let sb = null;
+let currentPage=1, limit=10, currentSearch="", sortField="date", sortOrder="desc";
+let searchTimer=null, requestId=0, lastHasMore=false, adminSession=null;
 
-	<!-- Script JS -->
-	<script src="./js/script.js"></script>
-	<!-- Analytics Start --><!--$%analytics%$--><!-- Analytics End -->
-   </body>
+function configured(){
+  return SUPABASE_URL.startsWith("https://") &&
+    !SUPABASE_URL.includes("YOUR_PROJECT_ID") &&
+    SUPABASE_ANON_KEY.length>30 &&
+    !SUPABASE_ANON_KEY.includes("YOUR_SUPABASE_ANON_KEY");
+}
+function toggleSidebar(e){if(e)e.stopPropagation();document.getElementById("sidebar").classList.toggle("active")}
+document.addEventListener("click",e=>{
+  const s=document.getElementById("sidebar"),h=document.querySelector(".hamburger");
+  if(!s.contains(e.target)&&!h.contains(e.target))s.classList.remove("active");
+});
+function toast(msg,type="success"){
+  const c=document.getElementById("toastContainer"),t=document.createElement("div");
+  t.className=`toast ${type}`;t.textContent=msg;c.appendChild(t);
+  requestAnimationFrame(()=>t.classList.add("show"));
+  setTimeout(()=>{t.classList.remove("show");setTimeout(()=>t.remove(),300)},3500);
+}
+function esc(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function updateAuth(user){
+  const yes=!!user;
+  document.getElementById("loginPanel").hidden=yes;
+  document.getElementById("adminPanel").hidden=!yes;
+  document.getElementById("authStatus").textContent=yes?`Login sebagai: ${user.email}`:"";
+}
+async function loginAdmin(){
+  try{
+    if(!sb)throw Error("Konfigurasi Supabase belum diisi.");
+    const email=document.getElementById("adminEmail").value.trim();
+    const password=document.getElementById("adminPassword").value;
+    if(!email||!password)throw Error("Masukkan email dan password admin.");
+    const b=document.getElementById("loginButton");b.disabled=true;b.textContent="Login...";
+    const {data,error}=await sb.auth.signInWithPassword({email,password});
+    b.disabled=false;b.textContent="Login Admin";
+    if(error)throw error;
+    adminSession=data.session;updateAuth(data.user);toast("Login admin berhasil.");
+  }catch(e){const b=document.getElementById("loginButton");b.disabled=false;b.textContent="Login Admin";toast(e.message,"error")}
+}
+async function logoutAdmin(){
+  const {error}=await sb.auth.signOut();if(error){toast(error.message,"error");return}
+  adminSession=null;updateAuth(null);toast("Logout berhasil.");
+}
+async function loadData(){
+  const id=++requestId,tbody=document.getElementById("tableData");
+  tbody.innerHTML='<tr><td colspan="4" class="loading-row">Memuat data...</td></tr>';
+  try{
+    if(!sb)throw Error("Isi konfigurasi Supabase di index.html terlebih dahulu.");
+    const from=(currentPage-1)*limit,to=from+limit; // ambil limit+1 untuk cek Next
+    let q=sb.from("tbl_stock").select("kode,nama_barang,stock,satuan,date")
+      .order(sortField,{ascending:sortOrder==="asc",nullsFirst:false})
+      .order("kode",{ascending:true}).range(from,to);
+    if(currentSearch){
+      // Hilangkan karakter sintaks filter PostgREST; pencarian teks tetap substring.
+      const term=currentSearch.replace(/[(),.%\\"]/g," ").trim();
+      if(!term){renderRows([]);setPaging(false);return}
+      q=q.or(`kode.ilike.%${term}%,nama_barang.ilike.%${term}%`);
+    }
+    const {data,error}=await q;
+    if(id!==requestId)return;
+    if(error)throw error;
+    const rows=data||[],hasMore=rows.length>limit,shown=hasMore?rows.slice(0,limit):rows;
+    lastHasMore=hasMore;renderRows(shown);setPaging(hasMore);updateLastUpdate(shown);
+  }catch(e){
+    if(id!==requestId)return;
+    tbody.innerHTML='<tr><td colspan="4" class="loading-row">Gagal memuat data</td></tr>';
+    toast(e.message||"Gagal memuat data.","error");
+  }
+}
+function renderRows(rows){
+  const tb=document.getElementById("tableData");
+  if(!rows.length){tb.innerHTML='<tr><td colspan="4" class="loading-row">Tidak ada data ditemukan</td></tr>';return}
+  tb.innerHTML=rows.map((r,i)=>`<tr><td>${(currentPage-1)*limit+i+1}</td><td>${esc(r.kode??"-")}</td><td>${esc(r.nama_barang??"-")}</td><td><strong>${esc(r.stock??0)}</strong> ${esc(r.satuan??"")}</td></tr>`).join("");
+}
+function setPaging(hasMore){
+  document.getElementById("prevButton").disabled=currentPage<=1;
+  document.getElementById("nextButton").disabled=!hasMore;
+  document.getElementById("paginationInfo").textContent=`Page ${currentPage}${currentSearch?" • Hasil pencarian":""}`;
+}
+function nextPage(){if(lastHasMore){currentPage++;loadData()}}
+function prevPage(){if(currentPage>1){currentPage--;loadData()}}
+function changeLimit(v){limit=Math.min(50,Math.max(1,parseInt(v,10)||10));currentPage=1;loadData()}
+function searchData(v){clearTimeout(searchTimer);searchTimer=setTimeout(()=>{currentSearch=v.trim().toLowerCase();currentPage=1;loadData()},500)}
+function sortStock(){sortField="stock";sortOrder=sortOrder==="asc"?"desc":"asc";document.getElementById("sortIcon").textContent=sortOrder==="asc"?"▲":"▼";currentPage=1;loadData()}
+function updateLastUpdate(rows){
+  const el=document.getElementById("lastUpdate"),dates=rows.map(x=>x.date).filter(Boolean).sort();
+  if(!dates.length){el.textContent="Last Update : -";return}
+  const d=new Date(dates[dates.length-1]);el.textContent="Last Update : "+(Number.isNaN(d.getTime())?dates[dates.length-1]:d.toLocaleString("id-ID"));
+}
+function parseStock(v){
+  const s=String(v??"").trim(),m=s.match(/[\d.,]+/),u=s.match(/[a-zA-Z]+$/);
+  return {stock:m?(Number(m[0].replace(/[.,]/g,""))||0):0,satuan:u?u[0]:"pcs"};
+}
+async function uploadExcel(){
+  const input=document.getElementById("fileExcel"),button=document.getElementById("importButton"),file=input.files?.[0];
+  if(!file){toast("Pilih file Excel terlebih dahulu.","error");return}
+  if(!adminSession){toast("Login admin terlebih dahulu.","error");return}
+  button.disabled=true;button.textContent="Memproses...";
+  try{
+    const wb=XLSX.read(new Uint8Array(await file.arrayBuffer()),{type:"array"});
+    const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1});
+    if(!rows||rows.length<=1)throw Error("File Excel kosong atau format tidak sesuai.");
+    const date=new Date().toISOString();
+    const payload=rows.slice(1).map(r=>{
+      const p=parseStock(r[3]);
+      return {nama_barang:String(r[1]??"").trim(),kode:String(r[2]??"").trim(),stock:p.stock,satuan:p.satuan,date};
+    }).filter(x=>x.kode&&x.nama_barang);
+    if(!payload.length)throw Error("Tidak ada data valid untuk diimpor.");
+    let count=0;
+    for(let i=0;i<payload.length;i+=500){
+      const {error}=await sb.from("tbl_stock").upsert(payload.slice(i,i+500),{onConflict:"kode"});
+      if(error)throw error;
+      count+=payload.slice(i,i+500).length;
+    }
+    input.value="";currentPage=1;currentSearch="";document.getElementById("searchInput").value="";
+    toast(`Berhasil mengimpor ${count} data.`);await loadData();
+  }catch(e){console.error(e);toast(e.message||"Import gagal.","error")}
+  finally{button.disabled=false;button.textContent="Import Data"}
+}
+async function init(){
+  if(!configured()||!window.supabase){
+    document.getElementById("tableData").innerHTML='<tr><td colspan="4" class="loading-row">Isi konfigurasi Supabase di index.html.</td></tr>';
+    toast("Konfigurasi Supabase belum diisi.","info");return;
+  }
+  sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+  const {data,error}=await sb.auth.getSession();
+  if(error)toast(error.message,"error");
+  adminSession=data?.session||null;updateAuth(adminSession?.user||null);
+  sb.auth.onAuthStateChange((_event,session)=>{adminSession=session;updateAuth(session?.user||null)});
+  await loadData();
+}
+init();
+</script>
+</body>
 </html>
-
