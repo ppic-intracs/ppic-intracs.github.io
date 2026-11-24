@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f4f6f8">
-<title>Stock PPIC Versi 1.0</title>
+<title>Data Stock PPIC</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -14,7 +14,9 @@ body{display:flex;background:#f4f6f8;color:#1e293b;min-height:100vh}
 .hamburger{display:none;position:fixed;top:15px;left:15px;background:#fff;color:#1e293b;border:1px solid #cbd5e1;padding:8px 12px;border-radius:8px;z-index:1100;cursor:pointer;font-size:18px}
 .title-wrapper{text-align:center;margin-bottom:24px}.page-title{font-size:24px;font-weight:600}.last-update-text{font-size:12px;color:#64748b;margin-top:4px}
 .sidebar{width:250px;height:100vh;background:#1e293b;color:#fff;padding:24px 20px;display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:1000;overflow-y:auto;box-shadow:2px 0 10px #0000000d;transition:left .3s}
-.sidebar h2{font-size:20px;font-weight:600;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid #334155}
+.sidebar h2{font-size:20px;font-weight:600;margin-bottom:6px;padding-bottom:0;border-bottom:0}
+.sidebar-version{color:#cbd5e1;font-size:11px;line-height:1.6;margin-bottom:10px}
+.sidebar-divider{border:0;border-top:1px solid #334155;margin:0 0 20px}
 .sidebar input,.sidebar button{width:100%;margin-bottom:12px;font-size:14px}
 .sidebar input[type=file]{padding:8px;background:#334155;color:#f8fafc;border-radius:6px;border:1px solid #475569}
 .sidebar input[type=email],.sidebar input[type=password]{padding:10px;background:#fff;color:#1e293b;border:1px solid #cbd5e1;border-radius:6px}
@@ -42,7 +44,8 @@ th{background:#f8fafc;color:#475569;font-weight:600;user-select:none}tbody tr:ho
 <aside class="sidebar" id="sidebar">
   <div>
     <h2>Dashboard</h2>
-    <div class="sidebar-note">Versi 1.0</div>
+    <div class="sidebar-version">Versi 1.0</div>
+    <hr class="sidebar-divider">
     <div id="loginPanel">
       <input type="email" id="adminEmail" placeholder="Email admin" autocomplete="username">
       <input type="password" id="adminPassword" placeholder="Password admin" autocomplete="current-password">
