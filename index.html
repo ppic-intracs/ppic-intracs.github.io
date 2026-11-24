@@ -53,7 +53,7 @@ th{background:#f8fafc;color:#475569;font-weight:600;user-select:none}tbody tr:ho
       <button type="button" id="importButton" onclick="uploadExcel()">Import Data</button>
       <button type="button" class="secondary" onclick="logoutAdmin()">Logout</button>
     </div>
-    <div class="sidebar-note">Import Excel hanya tersedia setelah admin login.</div>
+    <div class="sidebar-note">Import Excel hanya tersedia setelah admin login. Baris pertama dianggap sebagai header.</div>
   </div>
 </aside>
 <main class="main">
@@ -75,8 +75,8 @@ th{background:#f8fafc;color:#475569;font-weight:600;user-select:none}tbody tr:ho
 <script>
 // GANTI dengan Project URL dan anon/public key dari Supabase.
 // Jangan pernah memakai service_role key di browser.
-const SUPABASE_URL = "https://tgnzwysgvnzftizeroqb.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_FCMD51RuoqkIzp_7sa5TBg_bhEa-mD5";
+const SUPABASE_URL = "https://YOUR_PROJECT_ID.supabase.co";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
 
 let sb = null;
 let currentPage=1, limit=10, currentSearch="", sortField="date", sortOrder="desc";
@@ -177,26 +177,32 @@ async function uploadExcel(){
   const input=document.getElementById("fileExcel"),button=document.getElementById("importButton"),file=input.files?.[0];
   if(!file){toast("Pilih file Excel terlebih dahulu.","error");return}
   if(!adminSession){toast("Login admin terlebih dahulu.","error");return}
+  if(!confirm("Import akan mengatur STOCK SEMUA data yang sudah ada menjadi 0, lalu memasukkan/memperbarui data dari Excel. Lanjutkan?"))return;
   button.disabled=true;button.textContent="Memproses...";
   try{
     const wb=XLSX.read(new Uint8Array(await file.arrayBuffer()),{type:"array"});
     const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1});
     if(!rows||rows.length<=1)throw Error("File Excel kosong atau format tidak sesuai.");
     const date=new Date().toISOString();
-    const payload=rows.slice(1).map(r=>{
+    // Deduplicate berdasarkan kode agar satu kode hanya dikirim satu kali.
+    const unique=new Map();
+    rows.slice(1).forEach(r=>{
       const p=parseStock(r[3]);
-      return {nama_barang:String(r[1]??"").trim(),kode:String(r[2]??"").trim(),stock:p.stock,satuan:p.satuan,date};
-    }).filter(x=>x.kode&&x.nama_barang);
+      const item={nama_barang:String(r[1]??"").trim(),kode:String(r[2]??"").trim(),stock:p.stock,satuan:p.satuan,date};
+      if(item.kode&&item.nama_barang)unique.set(item.kode,item);
+    });
+    const payload=[...unique.values()];
     if(!payload.length)throw Error("Tidak ada data valid untuk diimpor.");
-    let count=0;
-    for(let i=0;i<payload.length;i+=500){
-      const {error}=await sb.from("tbl_stock").upsert(payload.slice(i,i+500),{onConflict:"kode"});
-      if(error)throw error;
-      count+=payload.slice(i,i+500).length;
-    }
+
+    // Satu RPC database: reset seluruh stock + upsert Excel secara atomik.
+    // Jika proses gagal, perubahan reset juga dibatalkan oleh PostgreSQL.
+    const {data,error}=await sb.rpc("import_stock_reset_and_upsert",{p_rows:payload});
+    if(error)throw error;
+    const count=Number(data)||payload.length;
     input.value="";currentPage=1;currentSearch="";document.getElementById("searchInput").value="";
-    toast(`Berhasil mengimpor ${count} data.`);await loadData();
-  }catch(e){console.error(e);toast(e.message||"Import gagal.","error")}
+    toast(`Import berhasil. ${count} data dari Excel dimasukkan; stock data lainnya menjadi 0.`);
+    await loadData();
+  }catch(e){console.error(e);toast(e.message||"Import gagal. Pastikan schema.sql versi terbaru sudah dijalankan.","error")}
   finally{button.disabled=false;button.textContent="Import Data"}
 }
 async function init(){
