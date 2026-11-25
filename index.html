@@ -136,12 +136,23 @@ async function loadData(){
     let q=sb.from("tbl_stock").select("kode,nama_barang,stock,satuan,date")
       .order(sortField,{ascending:sortOrder==="asc",nullsFirst:false})
       .order("kode",{ascending:true}).range(from,to);
-    if(currentSearch){
-      // Hilangkan karakter sintaks filter PostgREST; pencarian teks tetap substring.
-      const term=currentSearch.replace(/[(),.%\\"]/g," ").trim();
-      if(!term){renderRows([]);setPaging(false);return}
-      q=q.or(`kode.ilike.%${term}%,nama_barang.ilike.%${term}%`);
-    }
+
+      if(currentSearch){
+          // Hanya bersihkan karakter yang berpotensi mengganggu sintaks PostgREST.
+          // Titik (.) tetap dipertahankan agar P1.86 dapat dicari.
+          const term=currentSearch.replace(/[(),%\\"]/g," ").trim();
+      
+          if(!term){
+              renderRows([]);
+              setPaging(false);
+              return;
+          }
+      
+          q=q.or(
+              `kode.ilike.%${term}%,nama_barang.ilike.%${term}%`
+          );
+      }
+
     const {data,error}=await q;
     if(id!==requestId)return;
     if(error)throw error;
